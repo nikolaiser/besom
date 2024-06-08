@@ -24,6 +24,19 @@ object Main {
           metadata = PackageMetadata(name, version),
           schema = Some(os.Path(schemaPath))
         )
+      case "schema" :: name :: version :: schemaPath :: organization :: url :: vcs :: license :: repository :: developers =>
+        given Config = Config(
+          organization = organization,
+          url = url,
+          vcs = vcs,
+          license = license,
+          repository = repository,
+          developers = developers
+        )
+        generator.generatePackageSources(
+          metadata = PackageMetadata(name, version),
+          schema = Some(os.Path(schemaPath))
+        )
       case _ =>
         System.err.println(
           s"""|Unknown arguments: '${args.mkString(" ")}'
